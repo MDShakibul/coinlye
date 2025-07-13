@@ -128,6 +128,8 @@ const Header = () => {
                                                 </li>
                                             </ul> */}
 										</li>
+                                        {
+                                            loggedInInfo?.walletAddress &&
 										<li>
 											<Link to="dashboard" className="nav-link" onClick={()=>{push('/dashboard')}}>
 												<span className="nav_link_label" data-text="Dashboard">
@@ -135,6 +137,7 @@ const Header = () => {
 												</span>
 											</Link>
 										</li>
+                                        }
 										{/* <li>
                                             <Link to="id_ico_about_section" spy={true} smooth={true} duration={500} offset={-100} className="nav-link scrollspy_btn">
                                                 <span className="nav_link_label" data-text="About ICO">About ICO</span>
