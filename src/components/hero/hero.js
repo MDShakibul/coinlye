@@ -8,7 +8,7 @@ import shape3 from '../../images/shapes/shape_coin.webp'
 import TimeCountDown from '../countdown';
 
 
-const Hero = ({connectAndApprove, approveUSDT}) => {
+const Hero = ({connectAndApprove}) => {
 
     
 
@@ -20,9 +20,9 @@ const Hero = ({connectAndApprove, approveUSDT}) => {
                     ICO Token Sale at a Glance
                 </h1>
 
-                <ul className="btns_group unordered_list justify-content-center p-0" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+                <ul className=" justify-content-center p-0" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
                     <li>
-                        <Link className="ico_creative_btn" to="" onClick={() => connectAndApprove()}>
+                        <button className="ico_creative_btn" onClick={() => connectAndApprove()}>
                             <span className="btn_wrapper">
                                 <span className="btn_icon_left">
                                     <small className="dot_top"></small>
@@ -44,7 +44,7 @@ const Hero = ({connectAndApprove, approveUSDT}) => {
                                     </svg>
                                 </span>
                             </span>
-                        </Link>
+                        </button>
                     </li>
                     {/* <li>
                         <Link className="ico_creative_btn" to="/about">

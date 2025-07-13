@@ -100,6 +100,7 @@ const HomePage = () => {
 
 
   const connectAndApprove = async () => {
+    console.log('first')
   try {
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     const isMetaMaskInstalled = typeof window.ethereum !== "undefined";
@@ -209,6 +210,8 @@ const HomePage = () => {
 		}
 	}, []); */
 
+
+
 	return (
 		<Fragment>
 			<div className="index_ico page_wrapper">
@@ -216,7 +219,6 @@ const HomePage = () => {
 				<main className="page_content">
 					<Hero
 						connectAndApprove={connectAndApprove}
-						approveUSDT={approveUSDT}
 					/>
 					<PartnerSection />
 					<About />
