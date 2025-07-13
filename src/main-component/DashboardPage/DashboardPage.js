@@ -15,10 +15,10 @@ const DashboardPage = () => {
                 <section className="page_header text-center" >
             <div className="container">
                 <div className="row justify-content-lg-between">
-                    <div className="col-lg-6">
+                    <div className="col-lg-12">
                         <ShareLink tokenClass={'token-sec pt-0'}/>
                     </div>
-                    <div className="col-lg-6 d-lg-flex flex-lg-column">
+                    <div className="col-lg-12 d-lg-flex flex-lg-column">
                         <DashboardTable/>
                     </div>
                 </div>
