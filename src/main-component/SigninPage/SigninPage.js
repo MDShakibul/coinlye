@@ -2,10 +2,8 @@
 import React, { Fragment, useState } from 'react';
 import SimpleReactValidator from "simple-react-validator";
 import { toast } from "react-toastify";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Header from '../../components/header/Header';
-import sicon1 from '../../icons/icon_google.svg'
-import shape1 from '../../images/shapes/shape_divider.svg'
 import shape2 from '../../images/shapes/shape_flower_1.svg'
 import { useAppDispatch } from '../../redux/hook';
 import api from '../../util/api';

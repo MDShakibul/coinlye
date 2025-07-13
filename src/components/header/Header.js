@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-scroll'
 import { NavLink, useNavigate } from 'react-router-dom'
@@ -8,7 +9,7 @@ import { disconnectWallet, walletAddressResize } from '../../util/interact';
 import { useAppDispatch } from '../../redux/hook';
 import { disconnect } from '../../redux/features/auth/authSlice';
 
-const Header = (props) => {
+const Header = () => {
 
     const [mobailActive, setMobailState] = useState(false);
 

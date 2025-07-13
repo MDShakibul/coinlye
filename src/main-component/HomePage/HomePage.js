@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { Fragment, useEffect, useState } from 'react';
 import Header from '../../components/header/Header';
 import Hero from '../../components/hero/hero';
@@ -44,7 +45,7 @@ const HomePage = () => {
   	const [referCode, setReferCode] = useState('');
 	const navigate = useNavigate();
 
-	const loggedInInfo = useSelector((state) => state?.auth);
+	/* const loggedInInfo = useSelector((state) => state?.auth); */
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {

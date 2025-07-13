@@ -1,8 +1,5 @@
 
 import React, { Fragment } from 'react';
-import Header4 from '../../components/header4/Header4';
-import PageTitle from '../../components/pagetitle/PageTitle';
-import TokenSection from '../../components/Memecoin-Components/TokenSection/TokenSection';
 import Footer from '../../components/footer/Footer';
 import Scrollbar from '../../components/scrollbar/scrollbar';
 import DashboardTable from '../../components/DashboardSection/DashboardTable';
