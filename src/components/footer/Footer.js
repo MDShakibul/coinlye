@@ -10,9 +10,9 @@ const Footer = () => {
     const SubmitHandler = (e) => {
         e.preventDefault()
     }
-    const ClickHandler = () => {
+    /* const ClickHandler = () => {
         window.scrollTo(10, 0);
-    }
+    } */
     return (
         <footer className="ico_site_footer section_decoration section_shadow_top">
             <div className="decoration_item shape_top">
