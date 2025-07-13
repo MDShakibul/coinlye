@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import { Link } from 'react-router-dom'
 import Bg from '../../images/shapes/shape_net_ico_hero_section_bg.svg'
