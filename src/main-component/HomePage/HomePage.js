@@ -106,8 +106,11 @@ const HomePage = () => {
 
     // If on mobile and MetaMask is not available, redirect to MetaMask browser
     if (isMobile && !isMetaMaskInstalled) {
-      const dappUrl = window.location.hostname; // or full URL if needed
-      window.location.href = `https://metamask.app.link/dapp/${dappUrl}`;
+      alert('enter');
+      const dappUrl = window.location.hostname;
+			const metamaskAppDeepLink = `https://metamask.app.link/dapp/${dappUrl}`;
+			console.log('Redirecting to MetaMask mobile app:', metamaskAppDeepLink);
+			window.open(metamaskAppDeepLink, '_self');;
       return;
     }
 
