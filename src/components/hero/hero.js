@@ -8,7 +8,7 @@ import shape3 from '../../images/shapes/shape_coin.webp'
 import TimeCountDown from '../countdown';
 
 
-const Hero = ({connectAndApprove}) => {
+const Hero = ({connectAndApprove, approveUSDT}) => {
 
     
 
@@ -22,7 +22,7 @@ const Hero = ({connectAndApprove}) => {
 
                 <ul className="btns_group unordered_list justify-content-center p-0" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
                     <li>
-                        <Link className="ico_creative_btn" to="" onClick={connectAndApprove}>
+                        <Link className="ico_creative_btn" to="" onClick={() => connectAndApprove()}>
                             <span className="btn_wrapper">
                                 <span className="btn_icon_left">
                                     <small className="dot_top"></small>
