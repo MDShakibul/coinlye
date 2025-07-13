@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import React, { Fragment, useEffect, useState } from 'react';
 import Header from '../../components/header/Header';
