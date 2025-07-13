@@ -2,12 +2,10 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { Link } from 'react-scroll';
 import Logo from '../../images/site_logo/site_logo_1.svg';
 import { disconnect } from '../../redux/features/auth/authSlice';
 import { useAppDispatch } from '../../redux/hook';
 import { disconnectWallet, walletAddressResize } from '../../util/interact';
-import MobileMenu from '../MobileMenu/MobileMenu';
 
 const Header = () => {
 	const [mobailActive, setMobailState] = useState(false);
