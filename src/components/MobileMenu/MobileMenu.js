@@ -3,75 +3,20 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/List";
 import Collapse from "@mui/material/Collapse";
 import { Link } from 'react-scroll'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 
 const menus = [
     {
         id: 1,
         title: 'Home',
-        link: '/home_ico',
-        submenu: [
-            {
-                id: 11,
-                title: 'Coinlye ICO',
-                link: '/home_ico'
-            },
-            {
-                id: 12,
-                title: 'Memecoin',
-                link: '/home_memecoin'
-            },
-            {
-                id: 13,
-                title: 'Pepecoin',
-                link: '/home_pepecoin'
-            }
-        ]
-    },
-    {
-        id: 7,
-        title: 'My Account',
-        link: '/sign_in',
-        submenu: [
-            {
-                id: 71,
-                title: 'Sign In',
-                link: '/sign_in'
-            },
-            {
-                id: 72,
-                title: 'Sign Up',
-                link: '/sign_up'
-            },
-        ]
-    },
-    {
-        id: 6,
-        title: 'Blog',
-        link: '/blog',
-        submenu: [
-            {
-                id: 61,
-                title: 'Blog',
-                link: '/blog'
-            },
-            {
-                id: 62,
-                title: 'Blog Details',
-                link: '/blog-single/How-Our-Unique-Tokenomics-Ensures-Sustainable-Growth-and-Value'
-            },
-        ]
-    },
-    {
-        id: 88,
-        title: 'Contact',
-        link: '/contact',
+        link: '/',
     }
 
 
 ]
 
-const MobileMenu = () => {
+const MobileMenu = ({loggedInInfo}) => {
+    const push = useNavigate();
 
     const [openId, setOpenId] = useState(0);
 
@@ -110,19 +55,18 @@ const MobileMenu = () => {
                     </ListItem>
                 )
             })}
+            
             <ul className='MuiList-root MuiList-padding css-h4y409-MuiList-root'>
-                <li>
-                    <Link to="id_ico_about_section" spy={true} smooth={true} duration={500} offset={-100} className="nav-link scrollspy_btn">
-                        <span className="nav_link_label" data-text="About ICO">About ICO</span>
-                    </Link>
-                </li>
-            </ul>
-            <ul className='MuiList-root MuiList-padding css-h4y409-MuiList-root'>
-                <li>
-                    <Link to="id_ico_service_section" spy={true} smooth={true} duration={500} offset={-100} className="nav-link scrollspy_btn">
-                        <span className="nav_link_label" data-text="Features">Features</span>
-                    </Link>
-                </li>
+                {
+                                            loggedInInfo?.walletAddress &&
+										<li>
+											<Link to="dashboard" className="nav-link" onClick={()=>{push('/dashboard')}}>
+												<span className="nav_link_label" data-text="Dashboard">
+													Dashboard
+												</span>
+											</Link>
+										</li>
+                                        }
             </ul>
         </ul>
     )

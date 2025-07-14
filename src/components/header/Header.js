@@ -2,10 +2,12 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { Link } from 'react-scroll';
 import Logo from '../../images/site_logo/site_logo_1.svg';
 import { disconnect } from '../../redux/features/auth/authSlice';
 import { useAppDispatch } from '../../redux/hook';
 import { disconnectWallet, walletAddressResize } from '../../util/interact';
+import MobileMenu from '../MobileMenu/MobileMenu';
 
 const Header = () => {
 	const [mobailActive, setMobailState] = useState(false);
@@ -83,7 +85,46 @@ const Header = () => {
 							</div>
 						</div>
 						<div className="col-lg-6 col-2">
-							
+							<nav className="main_menu navbar navbar-expand-lg" style={{ display: mobailActive ? 'none' : '' }}>
+								<div
+									className={`main_menu_inner collapse navbar-collapse justify-content-center ${
+										mobailActive ? 'show' : ''
+									}`}
+									id="main_menu_dropdown"
+								>
+									<ul className="main_menu_list unordered_list text-uppercase main-menu">
+										<li className="dropdown">
+											<NavLink
+												onClick={ClickHandler}
+												className="nav-link"
+												to="/"
+												id="homes_submenu"
+												role="button"
+												data-bs-toggle="dropdown"
+												aria-expanded="false"
+											>
+												<span className="nav_link_label" data-text="Home">
+													Home
+												</span>
+												
+											</NavLink>
+											
+										</li>
+                                        {
+                                            loggedInInfo?.walletAddress &&
+										<li>
+											<Link to="dashboard" className="nav-link" onClick={()=>{push('/dashboard')}}>
+												<span className="nav_link_label" data-text="Dashboard">
+													Dashboard
+												</span>
+											</Link>
+										</li>
+                                        }
+										
+									</ul>
+									<MobileMenu loggedInInfo={loggedInInfo}/>
+								</div>
+							</nav>
 						</div>
 						<div className="col-lg-3 col-5">
 							<ul className="btns_group unordered_list p-0 justify-content-end">

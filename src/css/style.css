@@ -8105,6 +8105,12 @@ Responsive For Mobile & Tablet Devices
 ================================================== */
 /* Media Screen 991px - Start
 ================================================== */
+.share_link_btn_pc{
+  display: block;
+}
+.share_link_btn_mob{
+  display: none;
+}
 @media (max-width: 991px) {
   .container {
     max-width: 730px;
@@ -8206,8 +8212,23 @@ Responsive For Mobile & Tablet Devices
   .token_copy_board {
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    margin: 30px 15px 0;
+    margin: 30px 0px 0;
+    font-size: 15px;
   }
+
+  .share_link_btn_pc{
+  display: none;
+}
+.share_link_btn_mob{
+  display: block;
+  margin: 0 auto;
+  background: linear-gradient(90deg, var(--bs-primary), var(--bs-secondary));
+  font-weight: 600;
+  margin-top: 15px;
+  color: #070710;
+      border-radius: 6px;
+      padding: 6px 12px;
+}
 
   .meme_popup_video_area .image_block {
     float: none;

@@ -36,7 +36,6 @@ const ShareLink = (props) => {
             id="id_memecoin_service_section"
             className={` ${props.tokenClass}`}
         >
-            <div className="container">
                         <h2 className="heading_text text-uppercase mb-0 text-white">Share Link</h2>
 
                     <div className="token_copy_board">
@@ -44,14 +43,15 @@ const ShareLink = (props) => {
                             <i className="fa-solid fa-link text-white"></i>
                         </span>
                         <span className="code">
-                            {/* Link: <mark>https://carriu.online/?referCode=865379</mark> */}
-                            Link: <mark>{`${window.location.origin}/?referCode=${loggedInInfo?.referCode}`}</mark>
+                             <mark>{`${window.location.origin}/?referCode=${loggedInInfo?.referCode}`}</mark>
                         </span>
-                        <button className="share_link copy_btn" type="button" onClick={handleCopyClick} style={{}}>
+                        <button className="share_link copy_btn share_link_btn_pc" type="button" onClick={handleCopyClick} style={{}}>
                             {buttonText}
                         </button>
                     </div>
-                </div>
+                    <button className="share_link copy_btn share_link_btn_mob" type="button" onClick={handleCopyClick} style={{}}>
+                            {buttonText}
+                        </button>
         </section>
     );
 };
