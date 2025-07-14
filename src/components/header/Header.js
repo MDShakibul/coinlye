@@ -85,7 +85,7 @@ const Header = () => {
 							</div>
 						</div>
 						<div className="col-lg-6 col-2">
-							<nav className="main_menu navbar navbar-expand-lg" style={{ display: !mobailActive ? 'none' : '' }}>
+							<nav className="main_menu navbar navbar-expand-lg" >
 								<div
 									className={`main_menu_inner collapse navbar-collapse justify-content-center ${
 										mobailActive ? 'show' : ''
@@ -122,7 +122,7 @@ const Header = () => {
                                         }
 										
 									</ul>
-									<MobileMenu loggedInInfo={loggedInInfo}/>
+									<MobileMenu loggedInInfo={loggedInInfo} mobailActive={mobailActive}/>
 								</div>
 							</nav>
 						</div>

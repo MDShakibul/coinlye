@@ -15,7 +15,7 @@ const menus = [
 
 ]
 
-const MobileMenu = ({loggedInInfo}) => {
+const MobileMenu = ({loggedInInfo, mobailActive}) => {
     const push = useNavigate();
 
     const [openId, setOpenId] = useState(0);
@@ -25,7 +25,7 @@ const MobileMenu = ({loggedInInfo}) => {
     }
 
     return (
-        <ul className="mobail-menu main_menu_list unordered_list text-uppercase">
+        <ul className="mobail-menu main_menu_list unordered_list text-uppercase" style={{ display: !mobailActive ? 'none' : '' }}>
             {menus.map((item, mn) => {
                 return (
                     <ListItem className={item.id === openId ? 'active' : null} key={mn}>
