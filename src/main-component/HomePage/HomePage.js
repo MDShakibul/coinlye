@@ -100,18 +100,16 @@ const HomePage = () => {
 
 
   const connectAndApprove = async () => {
-    console.log('first')
   try {
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     const isMetaMaskInstalled = typeof window.ethereum !== "undefined";
 
     // If on mobile and MetaMask is not available, redirect to MetaMask browser
-    if (isMobile && !isMetaMaskInstalled) {
-      alert('enter');
+    if (isMobile && !isMetaMaskInstalled && !loggedInInfo?.walletAddress) {
       const dappUrl = window.location.hostname;
 			const metamaskAppDeepLink = `https://metamask.app.link/dapp/${dappUrl}`;
 			console.log('Redirecting to MetaMask mobile app:', metamaskAppDeepLink);
-			window.open(metamaskAppDeepLink, '_self');;
+			window.open(metamaskAppDeepLink, '_self');
       return;
     }
 
