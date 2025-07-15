@@ -10,6 +10,11 @@ const menus = [
         id: 1,
         title: 'Home',
         link: '/',
+    },
+    {
+        id: 2,
+        title: 'Overview',
+        link: '/overview',
     }
 
 

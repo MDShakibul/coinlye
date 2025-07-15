@@ -10,6 +10,7 @@ import SigninPage from '../SigninPage/SigninPage';
 import SignupPage from '../SignupPage/SignupPage';
 import DashboardPage from '../DashboardPage/DashboardPage';
 import AllUsers from '../AllUsers/AllUsers';
+import OverviewPage from '../OverviewPage/OverviewPage';
 
 const ProtectedRoute = ({ children, auth }) => {
   const location = useLocation();
@@ -33,6 +34,7 @@ const AllRoute = () => {
           <Route path="home_ico" element={<Homepage />} />
           {/* <Route path="home_memecoin" element={<HomePage2 />} />
           <Route path="home_pepecoin" element={<HomePage3 />} /> */}
+          <Route path="overview" element={<OverviewPage />} />
           <Route path="blog" element={<BlogPage />} />
           <Route path="blog-single/:slug" element={<BlogDetails />} />
           <Route path="contact" element={<ContactPage />} />

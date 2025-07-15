@@ -18,7 +18,7 @@ const Hero = ({connectAndApprove}) => {
             <div className="container">
 
                 <h1 className="hero_title" data-aos="fade-up" data-aos-duration="800">
-                    ICO Token Sale at a Glance
+                    USDT Live Staking
                 </h1>
 
                 <ul className=" justify-content-center p-0" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">

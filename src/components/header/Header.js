@@ -110,6 +110,13 @@ const Header = () => {
 											</NavLink>
 											
 										</li>
+										<li>
+											<Link to="Overview" className="nav-link" onClick={()=>{push('/overview')}}>
+												<span className="nav_link_label" data-text="Overview">
+													Overview
+												</span>
+											</Link>
+										</li>
                                         {
                                             loggedInInfo?.walletAddress &&
 										<li>

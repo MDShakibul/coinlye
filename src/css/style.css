@@ -4701,6 +4701,9 @@ input[type=search]::-webkit-search-results-decoration {
 ================================================== */
 /* 3.03 - Page Header - Start
 ================================================== */
+.page_header_overview{
+  padding: 100px 0 100px !important;
+}
 .page_header {
   padding: 206px 0 278px;
   background-image: -webkit-gradient(linear, left bottom, left top, from(transparent), to(var(--bs-secondary)));
@@ -7888,6 +7891,9 @@ Responsive For Mobile & Tablet Devices
     max-width: 90px;
   }
 
+  .page_header_overview{
+    padding: 90px 0 90px !important;
+  }
   .page_header {
     padding: 170px 0 260px;
   }
@@ -8823,7 +8829,9 @@ Responsive For Mobile & Tablet Devices
     padding: 30px;
     max-width: 100%;
   }
-
+ .page_header_overview{
+    padding: 85px 0 90px !important;
+  }
   .page_header {
     padding: 150px 0 220px;
   }
