@@ -10,6 +10,7 @@ import {
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import api from '../../util/api';
+import { formatDate } from '../../util/interact';
 
 
 
@@ -27,6 +28,7 @@ const DashboardTable = () => {
 				/* console.log(res?.data); */
 				/* console.log('referd users '); */
 				setReferredUsers(res?.data?.referred_users);
+				console.log(res?.data?.referred_users)
 			} catch (error) {
 				console.log('stories error response :: ', error);
 			}
@@ -40,7 +42,7 @@ const DashboardTable = () => {
 		<div className="">
 			<TableContainer
 				component={Paper}
-				sx={{ maxHeight: 250, overflow: 'auto' }}
+				sx={{ maxHeight: 300, overflow: 'auto' }}
 			>
 				<Table aria-label="user time table">
 					<TableHead>
@@ -66,10 +68,10 @@ const DashboardTable = () => {
 										{index + 1}
 									</TableCell>
 									<TableCell className="border border-gray-300 px-3 py-2 md:px-6 md:py-3 text-sm text-gray-900">
-										{user.date}
+										{formatDate(user.created_at)}
 									</TableCell>
 									<TableCell className="border border-gray-300 px-3 py-2 md:px-6 md:py-3 text-sm text-gray-900">
-										{user.address}
+										{user.wallet_address}
 									</TableCell>
 								</TableRow>
 							))

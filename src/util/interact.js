@@ -15,7 +15,20 @@ export const walletAddressResize = (address) => {
 	return `${address.slice(0, 4)}...${address.slice(-4)}`;
 };
 
-export const formatDate = (isoDate) => {
+export const formatDate =(isoString) => {
+  const date = new Date(isoString);
+  const options = {
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true,
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric'
+  };
+  return date.toLocaleString('en-US', options);
+}
+
+/* export const formatDate = (isoDate) => {
 	const date = new Date(isoDate);
 
 	// Define options for formatting the date
@@ -23,4 +36,4 @@ export const formatDate = (isoDate) => {
 
 	// Format the date to "23 Sep, 24"
 	return date.toLocaleDateString('en-GB', options).replace(' ', ', ');
-};
+}; */

