@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export default axios.create({
-    baseURL: 'https://web3-backend-chi.vercel.app',
+    baseURL: 'https://web3-blue-rho.vercel.app',
     headers: {
         'Content-Type': 'application/json',
     }
